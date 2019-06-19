@@ -1,0 +1,14 @@
+{
+  "name": "medicinow-api",
+  "version": "1.0.0",
+  "description": "An api for medicinow project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vinicius Cavalcante Leite",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
