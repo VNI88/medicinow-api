@@ -50,12 +50,22 @@ app.post('/api/v1/appointments', (req, res) => {
 
 //getting just one appointment
 app.get('api/v1/appointments/:id', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
+  let id = parseInt(req.params.id, 10);
+  console.log(id);
   db.map((appointment) => {
-    
-  })
-})
+    if(appointment.id === id) {
+      return res.status(200).send({
+        success: 'true',
+        message: 'appointment retrieved with success',
+        appointment,
+      });
+    } 
+  });
+  return res.status(404).send({
+    success: 'false',
+    message: 'appointment not found try again',
+  });
+});
 
 const port = 3001;
 
