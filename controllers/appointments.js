@@ -3,13 +3,37 @@ import db from '../db/db'
 
 class AppointmentsController {
   getAllAppointments(req, res) {
-    res.status(200).send({
-      success: 'true',
-      message: 'Appointments retrieved with success',
-      appointments: db
-    })
+    pool.connect((err, client, done) => {
+      let query = db.getAllAppointments;
+
+      client.query(query, (error, result) => {
+        done();
+
+        if (error){
+          res.status(400).json({error})
+        }
+
+        if(result.rows) < '1') {
+          res.status(404).send({
+            status: 'Failure',
+            message: 'No doctors found'
+          });
+        } else {
+          res.status(200).send({
+            status:'Success',
+            message: 'Doctors listed with success',
+            doctors: result.rows
+          });
+        }
+      });
+    });
+    // res.status(200).send({
+    //   success: 'true',
+    //   message: 'Appointments retrieved with success',
+    //   appointments: db
+    // })
   }
-  
+
   getAppointment(req, res) {
     let id = parseInt(req.params.id, 10);
     db.map((appointment) => {
@@ -19,14 +43,14 @@ class AppointmentsController {
           message: 'Appointment retrieved with success',
           appointment
         });
-      } 
+      }
     });
     return res.status(404).send({
       success: 'false',
       message: 'Appointment not found try again'
     });
   }
-  
+
   createAppointment(req, res) {
     const keys = [ 'doctor', 'proficiency', 'pacient', 'time', 'date'];
 
@@ -55,7 +79,7 @@ class AppointmentsController {
       appointment
     });
   }
-  
+
   updateAppointment(req, res) {
     const keys = [ 'doctor', 'proficiency', 'pacient', 'time', 'date'];
 
@@ -84,7 +108,7 @@ class AppointmentsController {
       appointment
     });
   }
-  
+
   deleteAppointment(req, res){
     const id = parseInt(req.params.id, 10);
     let appointmentFound;
