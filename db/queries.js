@@ -18,7 +18,7 @@ const config = {
 
 const db = pgp(config);
 
-let getAllMedicalAgreements = async (req, res, next) => {
+let getAllMedicalAgreements = (req, res, next) => {
   db.any(
     `SELECT *
      FROM MEDICAL_AGREEMENTS`
@@ -28,7 +28,32 @@ let getAllMedicalAgreements = async (req, res, next) => {
     .json({
       status: 'success',
       data: data,
-      message: 'Retrieved all medical medical_agreements'
+      message: 'Retrieved all medical agreements'
+    });
+  })
+  .catch (err => {
+    return next(err);
+  });
+};
+
+let getAllMedicalAgreementsPlans = (req, res, next) => {
+
+  let brandid = req.params.id
+  db.many(
+    `
+    SELECT brand, plan
+    FROM MEDICAL_AGREEMENTS
+    WHERE id = $1
+    `,
+
+    brandid
+  )
+  .then ( data => {
+   res.status(200)
+    .json({
+      status: 'success',
+      data: data,
+      message: 'Retrieved one medical agreement with id.'
     });
   })
   .catch (err => {
@@ -37,7 +62,8 @@ let getAllMedicalAgreements = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllMedicalAgreements: getAllMedicalAgreements
+  getAllMedicalAgreements: getAllMedicalAgreements,
+  getMedicalAgreement: getAllMedicalAgreementsPlans,
   // getMedicalAgreement: getMedicalAgreement,
   // createMedicalAgreement: createMedicalAgreement,
   // updateMedicalAgreement: updateMedicalAgreement,
