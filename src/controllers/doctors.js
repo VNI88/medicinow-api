@@ -1,6 +1,6 @@
 let database = require ('../db/queries.js');
 
-let  allDoctors = async (req, res) => {
+let  index = async (req, res) => {
 try{
     let data = await database.getAllDoctors()
     // 201 Status code means that something was created
@@ -18,7 +18,7 @@ try{
   }
 };
 
-let oneDoctor = async (req, res) => {
+let show = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.getDoctor(id)
@@ -37,7 +37,7 @@ let oneDoctor = async (req, res) => {
   }
 };
 
-let buildDoctor = async (req, res) => {
+let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createDoctor(body)
@@ -55,7 +55,7 @@ let buildDoctor = async (req, res) => {
   }
 };
 
-let modifyDoctor = async (req, res) => {
+let update = async (req, res) => {
   try{
     let id = req.params.id;
     let body = req.body;
@@ -74,7 +74,7 @@ let modifyDoctor = async (req, res) => {
   }
 }
 
-let excludeDoctor = async (req, res) => {
+let destroy = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.deleteDoctor(id)
@@ -101,9 +101,9 @@ let excludeDoctor = async (req, res) => {
 }
 
 module.exports = {
-  allDoctors:     allDoctors,
-  oneDoctor:      oneDoctor,
-  buildDoctor:    buildDoctor,
-  modifyDoctor:   modifyDoctor,
-  excludeDoctor:  excludeDoctor
+  index:     index,
+  show:      show,
+  create:    create,
+  update:   update,
+  destroy:  destroy
 }

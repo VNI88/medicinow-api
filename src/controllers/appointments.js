@@ -1,6 +1,6 @@
 let database = require ('../db/queries.js');
 
-let  allAppointments = async (req, res) => {
+let  index = async (req, res) => {
 try{
     let data = await database.getAllAppointments()
     // 201 Status code means that something was created
@@ -18,7 +18,7 @@ try{
   }
 };
 
-let oneAppointment = async (req, res) => {
+let show = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.getAppointment(id)
@@ -37,7 +37,7 @@ let oneAppointment = async (req, res) => {
   }
 };
 
-let buildAppointment = async (req, res) => {
+let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createAppointment(body)
@@ -55,7 +55,7 @@ let buildAppointment = async (req, res) => {
   }
 };
 
-let modifyAppointment = async (req, res) => {
+let update = async (req, res) => {
   try{
     let id = req.params.id;
     let body = req.body;
@@ -74,7 +74,7 @@ let modifyAppointment = async (req, res) => {
   }
 }
 
-let excludeAppointment = async (req, res) => {
+let destroy = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.deleteAppointment(id)
@@ -101,9 +101,9 @@ let excludeAppointment = async (req, res) => {
 }
 
 module.exports = {
-  allMedicalAgreement: allMedicalAgreement,
-  oneAppointment:      oneAppointment,
-  modifyAppointment:   modifyAppointment,
-  buildAppointment:    buildAppointment,
-  excludeAppointment:  excludeAppointment
+  index:    allMedicalAgreement,
+  show:     show,
+  update:   update,
+  create:   create,
+  destroy:  destroy
 }

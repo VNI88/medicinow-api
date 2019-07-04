@@ -1,6 +1,6 @@
 let database = require ('../db/queries.js');
 
-let  allOffices = async (req, res) => {
+let  index = async (req, res) => {
 try{
     let data = await database.getAllOffices()
     // 201 Status code means that something was created
@@ -18,7 +18,7 @@ try{
   }
 };
 
-let oneOffice = async (req, res) => {
+let show = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.getOffice(id)
@@ -37,7 +37,7 @@ let oneOffice = async (req, res) => {
   }
 };
 
-let buildOffice = async (req, res) => {
+let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createOffice(body)
@@ -55,7 +55,7 @@ let buildOffice = async (req, res) => {
   }
 };
 
-let modifyOffice = async (req, res) => {
+let update = async (req, res) => {
   try{
     let id = req.params.id;
     let body = req.body;
@@ -74,7 +74,7 @@ let modifyOffice = async (req, res) => {
   }
 }
 
-let excludeOffice = async (req, res) => {
+let destroy = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.deleteOffice(id)
@@ -101,9 +101,9 @@ let excludeOffice = async (req, res) => {
 }
 
 module.exports = {
-  allOffices: allOffices,
-  oneOffice: oneOffice,
-  modifyOffice: modifyOffice,
-  buildOffice: buildOffice,
-  excludeOffice: excludeOffice
+  index: index,
+  show: show,
+  update: update,
+  create: create,
+  destroy: destroy
 }

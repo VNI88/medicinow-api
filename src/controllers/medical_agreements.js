@@ -1,6 +1,6 @@
 let database = require ('../db/queries.js');
 
-let  allMedicalAgreements = async (req, res) => {
+let  index = async (req, res) => {
 try{
     let data = await database.getAllMedicalAgreements()
     // 201 Status code means that something was created
@@ -18,7 +18,7 @@ try{
   }
 };
 
-let oneMedicalAgreement = async (req, res) => {
+let show = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.getMedicalAgreement(id)
@@ -37,7 +37,7 @@ let oneMedicalAgreement = async (req, res) => {
   }
 };
 
-let buildMedicalAgreement = async (req, res) => {
+let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createMedicalAgreement(body)
@@ -55,7 +55,7 @@ let buildMedicalAgreement = async (req, res) => {
   }
 };
 
-let modifyMedicalAgreement = async (req, res) => {
+let update = async (req, res) => {
   try{
     let id = req.params.id;
     let body = req.body;
@@ -74,7 +74,7 @@ let modifyMedicalAgreement = async (req, res) => {
   }
 }
 
-let excludeMedicalAgreement = async (req, res) => {
+let destroy = async (req, res) => {
   try{
     let id = req.params.id;
     let data = await database.deleteMedicalAgreement(id)
@@ -101,9 +101,9 @@ let excludeMedicalAgreement = async (req, res) => {
 }
 
 module.exports = {
-  allMedicalAgreements: allMedicalAgreements,
-  oneMedicalAgreement: oneMedicalAgreement,
-  modifyMedicalAgreement: modifyMedicalAgreement,
-  buildMedicalAgreement: buildMedicalAgreement,
-  excludeMedicalAgreement: excludeMedicalAgreement
+  index: index,
+  show: show,
+  update: update,
+  create: create,
+  destroy: destroy
 }
