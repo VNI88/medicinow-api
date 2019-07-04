@@ -1,8 +1,8 @@
 let database = require ('../db/queries.js');
 
-let  allMedicalAgreements = async (req, res) => {
+let  allAppointments = async (req, res) => {
 try{
-    let data = await database.getAllMedicalAgreements()
+    let data = await database.getAllAppointments()
     // 201 Status code means that something was created
     return res.status(201).json({
      status: 'success',
@@ -18,10 +18,10 @@ try{
   }
 };
 
-let oneMedicalAgreement = async (req, res) => {
+let oneAppointment = async (req, res) => {
   try{
     let id = req.params.id;
-    let data = await database.getMedicalAgreement(id)
+    let data = await database.getAppointment(id)
 
     return res.status(200).json({
      status: 'success',
@@ -37,10 +37,10 @@ let oneMedicalAgreement = async (req, res) => {
   }
 };
 
-let buildMedicalAgreement = async (req, res) => {
+let buildAppointment = async (req, res) => {
   try{
     let body = req.body;
-    let data = await database.createMedicalAgreement(body)
+    let data = await database.createAppointment(body)
 
     return res.status(201).json({
      status: 'success',
@@ -55,11 +55,11 @@ let buildMedicalAgreement = async (req, res) => {
   }
 };
 
-let modifyMedicalAgreement = async (req, res) => {
+let modifyAppointment = async (req, res) => {
   try{
     let id = req.params.id;
     let body = req.body;
-    let data = await database.updateMedicalAgreement(id, body)
+    let data = await database.updateAppointment(id, body)
 
     return res.status(201).json({
      status: 'success',
@@ -74,10 +74,10 @@ let modifyMedicalAgreement = async (req, res) => {
   }
 }
 
-let excludeMedicalAgreement = async (req, res) => {
+let excludeAppointment = async (req, res) => {
   try{
     let id = req.params.id;
-    let data = await database.deleteMedicalAgreement(id)
+    let data = await database.deleteAppointment(id)
 
     if (data.rowCount <=  0) {
      res.status(404)
@@ -101,9 +101,9 @@ let excludeMedicalAgreement = async (req, res) => {
 }
 
 module.exports = {
-  allMedicalAgreements: allMedicalAgreements,
-  oneMedicalAgreement: oneMedicalAgreement,
-  modifyMedicalAgreement: modifyMedicalAgreement,
-  buildMedicalAgreement: buildMedicalAgreement,
-  excludeMedicalAgreement: excludeMedicalAgreement
+  allMedicalAgreement: allMedicalAgreement,
+  oneAppointment:      oneAppointment,
+  modifyAppointment:   modifyAppointment,
+  buildAppointment:    buildAppointment,
+  excludeAppointment:  excludeAppointment
 }
