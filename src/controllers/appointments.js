@@ -101,7 +101,7 @@ let destroy = async (req, res) => {
 }
 
 module.exports = {
-  index:    allMedicalAgreement,
+  index:    index,
   show:     show,
   update:   update,
   create:   create,

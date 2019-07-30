@@ -1,14 +1,15 @@
 let database = require ('../db/queries.js');
 
 let  index = async (req, res) => {
-try{
+  try{
+    console.log(req.query)
     let data = await database.getAllMedicalAgreements()
     // 201 Status code means that something was created
     return res.status(201).json({
      status: 'success',
      data: data,
      message: 'Retrieved all medical agreements'
-   });
+    });
   }
   catch (err) {
     return res.status(404).json({

@@ -9,7 +9,7 @@ let options = {
 const pgp = require('pg-promise')(options);
 
 const config = {
-  user: 'vinicius',
+  user: 'vini',
   password: 'pass123',
   database: 'medicinow_api',
 
@@ -22,14 +22,26 @@ Queries for /medical_agreements endpoint
 ***********************************************/
 
 let getAllMedicalAgreements = () => {
-  let query =
-  `
-  SELECT *
-  FROM MEDICAL_AGREEMENTS
-   `;
+  // if ( queryParameter ==  null ) {
 
-  return  db.any(query);
+    let query =
+    `
+    SELECT *
+    FROM MEDICAL_AGREEMENTS
+     `;
+  //
+  //   return  db.any(query);
+  // }
+  // else {
+  //   let query =
+  //   `
+  //   SELECT *
+  //   FROM MEDICAL_AGREEMENTS
+  //   WHERE
+  //    `;
 
+    return  db.any(query);
+  // }
 };
 
 let getMedicalAgreement = (id) => {
@@ -311,8 +323,8 @@ module.exports = {
   createMedicalAgreement:   createMedicalAgreement,
   updateMedicalAgreement:   updateMedicalAgreement,
   deleteMedicalAgreement:   deleteMedicalAgreement,
-  getAlldDoctors:           getAlldDoctors,
-  getdDoctor:               getdDoctor,
+  getAllDoctors:           getAllDoctors,
+  getDoctor:               getDoctor,
   createdDoctor:            createDoctor,
   updatedDoctor:            updateDoctor,
   deletedDoctor:            deleteDoctor,

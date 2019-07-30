@@ -54,7 +54,7 @@ Controller: Offices
 router.get('/api/v1/offices',  offices.index);
 
 //GET just one office
-router.get('/api/v1/offices/:id', offices.show;
+router.get('/api/v1/offices/:id', offices.show);
 
 // POST a office
 router.post('/api/v1/offices', offices.create);
