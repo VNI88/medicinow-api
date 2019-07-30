@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
 
-const port = 5000;
+const port = 3001;
 
-app.listen(port, () => {
+app.listen(port || 5000, () => {
   console.log(`Server running on port ${port}`)
 });
