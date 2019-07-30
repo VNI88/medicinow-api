@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 let promise = require('bluebird');
 
 let options = {
@@ -9,9 +11,9 @@ let options = {
 const pgp = require('pg-promise')(options);
 
 const config = {
-  user: 'vini',
-  password: 'pass123',
-  database: 'medicinow_api',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE
 
 };
 
