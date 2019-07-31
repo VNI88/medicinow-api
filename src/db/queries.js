@@ -13,8 +13,9 @@ const pgp = require('pg-promise')(options);
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_DATABASE
-
+  database: process.env.DB_DATABASE,
+  ssl: true,
+  connectionString: process.env.DATABASE_URL
 };
 
 const db = pgp(config);
