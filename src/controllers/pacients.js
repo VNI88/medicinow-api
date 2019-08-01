@@ -44,7 +44,7 @@ let create = async (req, res) => {
 
     return res.status(201).json({
      status: 'success',
-     message: `Inserted pacient with success.`
+     message: `Created pacient with success.`
    });
   }
   catch (err) {

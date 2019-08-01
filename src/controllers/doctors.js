@@ -40,11 +40,13 @@ let show = async (req, res) => {
 let create = async (req, res) => {
   try{
     let body = req.body;
+    console.log('OPA')
+    console.log(body)
     let data = await database.createDoctor(body)
 
     return res.status(201).json({
      status: 'success',
-     message: `Doctor registered with success.`
+     message: 'Doctor registered with success.'
    });
   }
   catch (err) {

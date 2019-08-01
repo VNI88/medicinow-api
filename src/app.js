@@ -6,6 +6,11 @@ const router = require ('./routes/index');
 //Setting express app
 const app = express();
 
+//Api HomePage
+app.get('/', (req, res) => {
+  res.send('Welcome to MediciNOW API!')
+})
+
 //Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

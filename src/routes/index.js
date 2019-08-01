@@ -1,16 +1,22 @@
-const express = require('express');
 import db from '../db/queries';
-const medical_agreements = require('../controllers/medical_agreements.js')
-const offices = require('../controllers/offices.js')
-const doctors = require('../controllers/doctors.js')
-const pacients = require('../controllers/pacients.js')
-const appointments = require('../controllers/appointments.js')
+// import authentication from '../controllers/authentication.js';
 
+const express = require('express');
+// const passport = require('passport');
+const medical_agreements = require('../controllers/medical_agreements.js');
+const offices = require('../controllers/offices.js');
+const doctors = require('../controllers/doctors.js');
+const pacients = require('../controllers/pacients.js');
+const appointments = require('../controllers/appointments.js');
+const passport = require('../services/passport.js');
+
+// const requireAuth = passport.authenticate('jwt', {session: false});
 
 let router = express.Router();
 /**********************************************
 Controller: Medical Agreements
 ***********************************************/
+// router.get('/', requireAuth, (req, res) => res.redirect('/api/v1/medical_agreements'))
 
 //GET all medical agreements
 router.get('/api/v1/medical_agreements',  medical_agreements.index);

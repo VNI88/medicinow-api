@@ -52,7 +52,7 @@ let getMedicalAgreement = (id) => {
   `
   SELECT *
   FROM MEDICAL_AGREEMENTS
-  WHERE id = $1
+  WHERE id = \$1
   `;
 
   return db.many(query, id);
@@ -109,20 +109,32 @@ let getDoctor = (id) => {
   `
   SELECT *
   FROM DOCTORS
-  WHERE id = $1
+  WHERE id = \$1
   `;
 
   return db.many(query, id);
 };
 
 let createDoctor = (body) => {
+  console.log(body)
   let query =
   `
-  INSERT INTO DOCTORS (first_name, last_name, telephone, email, password, crm)
-  VALUES (\${first_name}, \${last_name}, \${telephone}, \${email}, \${password}, \${crm})
+  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm)
+  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm})
   `;
 
   db.none( query, body);
+};
+
+let verifyDoctor = (email) => {
+  let query =
+  `
+  SELECT *
+  FROM DOCTORS
+  WHERE email = \$1
+  `
+
+  return db.oneOrNone(query, email);
 };
 
 let updateDoctor = (id, body) => {
@@ -215,7 +227,7 @@ let getAllPacients = () => {
   FROM PACIENTS
    `;
 
-  return  db.many(query);
+  return  db.any(query);
 
 };
 
@@ -238,6 +250,17 @@ let createPacient = (body) => {
   `;
 
   db.none( query, body);
+};
+
+let verifyPacients = (email) => {
+  let query =
+  `
+  SELECT *
+  FROM PACIENTS
+  WHERE email = \$1
+  `
+
+  return db.oneOrNone(query, email);
 };
 
 let updatePacient = (id, body) => {
@@ -279,19 +302,19 @@ let getAllAppointments = () => {
 let getAppointment = (id) => {
   let query =
   `
-  SELECT brand, plan
+  SELECT *
   FROM APPOINTMENTS
   WHERE id = $1
   `;
 
-  return db.many(query, id);
+  return db.one(query, id);
 };
 
 let createAppointment = (body) => {
   let query =
   `
-  INSERT INTO APPOINTMENTS (brand, plan)
-  VALUES (\${brand}, \${plan})
+  INSERT INTO APPOINTMENTS (pacient_id, doctor_id, medical_agreement_id, appointment_day, appointment_hour)
+  VALUES (\${pacient_id}, \${doctor_id}, \${medical_agreement_id}, \${appointment_day}, \${appointment_hour})
   `;
 
   db.none( query, body);
@@ -301,7 +324,7 @@ let updateAppointment = (id, body) => {
   let query =
   `
   UPDATE APPOINTMENTS
-  SET brand = \${brand} , plan = \${plan}
+  SET pacient_id = \${pacient_id} , doctor_id = \${doctor_id}, medical_agreement_id = \${medical_agreement_id}, appointment_day = \${appointment_day}, appointment_hour = \${appointment_hour}, confirmed = \${confirmed}, canceled = \${canceled}
   WHERE id = ${id}
   `;
 
@@ -326,9 +349,10 @@ module.exports = {
   createMedicalAgreement:   createMedicalAgreement,
   updateMedicalAgreement:   updateMedicalAgreement,
   deleteMedicalAgreement:   deleteMedicalAgreement,
-  getAllDoctors:           getAllDoctors,
-  getDoctor:               getDoctor,
-  createdDoctor:            createDoctor,
+  getAllDoctors:            getAllDoctors,
+  getDoctor:                getDoctor,
+  createDoctor:            createDoctor,
+  verifyDoctor:             verifyDoctor,
   updatedDoctor:            updateDoctor,
   deletedDoctor:            deleteDoctor,
   getAllOffices:            getAllOffices,
@@ -339,6 +363,7 @@ module.exports = {
   getAllPacients:           getAllPacients,
   getPacient:               getPacient,
   createPacient:            createPacient,
+  verifyPacients:             verifyPacients,
   updatePacient:            updatePacient,
   deletePacient:            deletePacient,
   getAllAppointments:       getAllAppointments,
