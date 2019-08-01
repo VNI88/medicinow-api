@@ -50,7 +50,7 @@ let getAllMedicalAgreements = () => {
 let getMedicalAgreement = (id) => {
   let query =
   `
-  SELECT brand, plan
+  SELECT *
   FROM MEDICAL_AGREEMENTS
   WHERE id = $1
   `;
@@ -107,7 +107,7 @@ let getAllDoctors = () => {
 let getDoctor = (id) => {
   let query =
   `
-  SELECT brand, plan
+  SELECT *
   FROM DOCTORS
   WHERE id = $1
   `;
@@ -118,8 +118,8 @@ let getDoctor = (id) => {
 let createDoctor = (body) => {
   let query =
   `
-  INSERT INTO DOCTORS (brand, plan)
-  VALUES (\${brand}, \${plan})
+  INSERT INTO DOCTORS (first_name, last_name, telephone, email, password, crm)
+  VALUES (\${first_name}, \${last_name}, \${telephone}, \${email}, \${password}, \${crm})
   `;
 
   db.none( query, body);
@@ -129,7 +129,7 @@ let updateDoctor = (id, body) => {
   let query =
   `
   UPDATE DOCTORS
-  SET brand = \${brand} , plan = \${plan}
+  SET first_name = \${first_name} , last_name = \${last_name}, telephone = \${telephone}, email = \${email}, password = \${password}
   WHERE id = ${id}
   `;
 
@@ -158,14 +158,14 @@ let getAllOffices = () => {
   FROM OFFICES
    `;
 
-  return  db.any(query);
+  return  db.many(query);
 
 };
 
 let getOffice = (id) => {
   let query =
   `
-  SELECT brand, plan
+  SELECT *
   FROM OFFICES
   WHERE id = $1
   `;
@@ -215,26 +215,26 @@ let getAllPacients = () => {
   FROM PACIENTS
    `;
 
-  return  db.any(query);
+  return  db.many(query);
 
 };
 
 let getPacient = (id) => {
   let query =
   `
-  SELECT brand, plan
+  SELECT *
   FROM PACIENTS
   WHERE id = $1
   `;
 
-  return db.many(query, id);
+  return db.one(query, id);
 };
 
 let createPacient = (body) => {
   let query =
   `
-  INSERT INTO PACIENTS (brand, plan)
-  VALUES (\${brand}, \${plan})
+  INSERT INTO PACIENTS (first_name, last_name, telephone, email, password)
+  VALUES (\${first_name}, \${last_name}, \${telephone}, \${email}, \${password})
   `;
 
   db.none( query, body);
@@ -244,7 +244,7 @@ let updatePacient = (id, body) => {
   let query =
   `
   UPDATE PACIENTS
-  SET brand = \${brand} , plan = \${plan}
+  SET first_name = \${first_name} , last_name = \${last_name}, telephone = \${telephone}, email = \${email}, password = \${password}
   WHERE id = ${id}
   `;
 
