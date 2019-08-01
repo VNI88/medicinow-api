@@ -7,7 +7,7 @@ try{
     return res.status(201).json({
      status: 'success',
      data: data,
-     message: 'Retrieved all medical agreements'
+     message: 'Retrieved all appointments'
    });
   }
   catch (err) {
@@ -26,7 +26,7 @@ let show = async (req, res) => {
     return res.status(200).json({
      status: 'success',
      data: data,
-     message: `Retrieved medical agreement of id: ${id}`
+     message: `Retrieved appointment of id: ${id}`
    });
   }
   catch (err) {
@@ -44,7 +44,7 @@ let create = async (req, res) => {
 
     return res.status(201).json({
      status: 'success',
-     message: `Inserted medical agreement with success.`
+     message: `Created appointment with success.`
    });
   }
   catch (err) {
@@ -63,7 +63,7 @@ let update = async (req, res) => {
 
     return res.status(201).json({
      status: 'success',
-     message: `Updated ${data.rowCount} medical agreements.`
+     message: `Updated ${data.rowCount} appointments.`
    });
   }
   catch (err) {
@@ -83,12 +83,12 @@ let destroy = async (req, res) => {
      res.status(404)
       .json({
         status: 'failed',
-        message: `Removed ${data.rowCount} medical agreement.`
+        message: `Removed ${data.rowCount} appointment.`
       });
     } else {
       res.status(200).json({
         status: 'success',
-        message: `Removed ${data.rowCount} medical agreement.`
+        message: `Removed ${data.rowCount} appointment.`
       });
     }
   }
