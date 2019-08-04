@@ -2,7 +2,7 @@ const express = require ('express');
 const db = require ('./db/queries');
 const bodyParser = require ('body-parser');
 const router = require ('./routes/index');
-
+const auth = require('../src/middleware/auth.js')
 //Setting express app
 const app = express();
 

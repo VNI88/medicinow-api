@@ -116,14 +116,14 @@ let getDoctor = (id) => {
 };
 
 let createDoctor = (body) => {
-  console.log(body)
   let query =
   `
   INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm)
   VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm})
+  RETURNING id
   `;
 
-  db.none( query, body);
+  return db.one(query, body);
 };
 
 let verifyDoctor = (email) => {
@@ -131,7 +131,7 @@ let verifyDoctor = (email) => {
   `
   SELECT *
   FROM DOCTORS
-  WHERE email = \$1
+  WHERE email = \${email}
   `
 
   return db.oneOrNone(query, email);
@@ -247,20 +247,21 @@ let createPacient = (body) => {
   `
   INSERT INTO PACIENTS (first_name, last_name, telephone, email, password)
   VALUES (\${first_name}, \${last_name}, \${telephone}, \${email}, \${password})
+  RETURNING id
   `;
 
-  db.none( query, body);
+  return db.one(query, body);
 };
 
-let verifyPacients = (email) => {
+let verifyPacient = (body) => {
   let query =
   `
   SELECT *
   FROM PACIENTS
-  WHERE email = \$1
-  `
+  WHERE email = \${email} AND password = \${password}
+  `;
 
-  return db.oneOrNone(query, email);
+  return db.oneOrNone(query, body);
 };
 
 let updatePacient = (id, body) => {
@@ -363,7 +364,7 @@ module.exports = {
   getAllPacients:           getAllPacients,
   getPacient:               getPacient,
   createPacient:            createPacient,
-  verifyPacients:             verifyPacients,
+  verifyPacient:           verifyPacient,
   updatePacient:            updatePacient,
   deletePacient:            deletePacient,
   getAllAppointments:       getAllAppointments,

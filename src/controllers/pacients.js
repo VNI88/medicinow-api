@@ -1,4 +1,5 @@
 let database = require ('../db/queries.js');
+const {generateToken} = require('../middleware/auth.js');
 
 let  index = async (req, res) => {
 try{
@@ -41,9 +42,13 @@ let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createPacient(body)
-
+    let userId = {
+      id: data.id
+    };
+    
     return res.status(201).json({
      status: 'success',
+     token: generateToken(userId),
      message: `Created pacient with success.`
    });
   }
