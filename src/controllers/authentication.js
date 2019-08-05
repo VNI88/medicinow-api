@@ -1,6 +1,4 @@
-let jwt = require('jsonwebtoken');
 let database = require ('../db/queries.js');
-const config = require('../config/config.js');
 const {generateToken} = require('../middleware/auth.js');
 
 let create = async (req, res) => {
