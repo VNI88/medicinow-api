@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const jwt = require('jsonwebtoken');
 const config = require('../config/config.js')
 
@@ -14,7 +16,7 @@ const verifyToken = (req, res, next) => {
    req.token = bearerToken;
 
    // Next middleware
-   jwt.verify(req.token, config.jwtSecret)
+   jwt.verify(req.token, config.jwtSecret || process.env.JWT_SECRET)
    next()
   }
   else {
@@ -24,7 +26,7 @@ const verifyToken = (req, res, next) => {
 }
 
 let generateToken = (payload) => {
-  return jwt.sign(payload, config.jwtSecret, {
+  return jwt.sign(payload, config.jwtSecret || process.env.JWT_SECRET, {
   expiresIn: 86400
 })
 };
