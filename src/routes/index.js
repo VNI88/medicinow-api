@@ -111,6 +111,6 @@ Controller: authentication
 ***********************************************/
 
 //POST token
-router.post('/api/v1/authenticate', authentication.create)
+router.post('/api/v1/sign_in', authentication.create)
 
 module.exports =  router;

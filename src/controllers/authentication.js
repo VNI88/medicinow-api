@@ -1,22 +1,34 @@
 let database = require ('../db/queries.js');
-const {generateToken} = require('../middleware/auth.js');
+const {generateToken, validatePass} = require('../middleware/auth.js');
 
 let create = async (req, res) => {
   try{
     let body = req.body;
     if(body.email && body.password){
       let email = body.email;
-      let pass = body.password;
+      let password = body.password;
 
       let pacientValidation = await database.verifyPacient(body);
       let doctorValidation = await database.verifyDoctor(body);
 
-      let realPacient = (pacientValidation, doctorValidation) => {
-        if (pacientValidation.email === email && pacientValidation.password === password) {
-          return pacientValidation
+      let realPacient =  async (pacientValidation, doctorValidation) => {
+        if (pacientValidation.email === email && password) {
+          let res =  await validatePass(password, pacientValidation.password);
+          if(res === true){
+            return pacientValidation;
+          }
+          else {
+            return false
+          }
         }
-        else if (doctorValidation.email === email && doctorValidation.password === password){
-          return doctorValidation
+        else if (doctorValidation.email === email && password){
+          let res = await validatePass(password, doctorValidation.password);
+          if(res === true) {
+            return doctorValidation;
+          }
+          else {
+            return false
+          }
         }
         else {
           return false
@@ -40,6 +52,18 @@ let create = async (req, res) => {
           error: err
         });
       }
+    }
+    else if (body.email){
+      return res.status(401).json({
+        status: 'failed',
+        error: 'Invalid password'
+      });
+    }
+    else {
+      return res.status(401).json({
+        status: 'failed',
+        error: 'Please send your credentials'
+      });
     }
   }
   catch(err) {

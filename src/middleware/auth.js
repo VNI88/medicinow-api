@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const jwt = require('jsonwebtoken');
 // const config = require('../config/config.js')
+const bcrypt = require('bcrypt');
 
 const verifyToken = (req, res, next) => {
   // Get auth header value
@@ -31,7 +32,27 @@ let generateToken = (payload) => {
 })
 };
 
+let encryptPass =  (password) => {
+  const saltRounds = 10;
+
+  let hash =  bcrypt.hash(password, saltRounds);
+
+  return hash;
+};
+
+let validatePass = (reqPass, password) => {
+  return bcrypt.compare(reqPass, password, (err, res) => {
+    if(res === true){
+      return res;
+    }
+    else{
+      return false;
+    }
+  })
+};
 module.exports = {
   verifyToken: verifyToken,
-  generateToken: generateToken
+  generateToken: generateToken,
+  encryptPass: encryptPass,
+  validatePass: validatePass
 }

@@ -1,5 +1,5 @@
 let database = require ('../db/queries.js');
-let {generateToken} = require('../middleware/auth.js');
+let {generateToken, encryptPass} = require('../middleware/auth.js');
 
 let  index = async (req, res) => {
 try{
@@ -41,7 +41,10 @@ let show = async (req, res) => {
 let create = async (req, res) => {
   try{
     let body = req.body;
-    let data = await database.createDoctor(body)
+    
+    body.password = await encryptPass(body.password);
+    let data = await database.createDoctor(body);
+
     let userId = {
       id: data.id
     };
