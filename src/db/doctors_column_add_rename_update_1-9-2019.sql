@@ -1,0 +1,4 @@
+ALTER TABLE doctors
+	ADD COLUMN SPECIALITY VARCHAR(20)
+  RENAME COLUMN id TO doctor_id
+  ALTER COLUMN appointment_hour;

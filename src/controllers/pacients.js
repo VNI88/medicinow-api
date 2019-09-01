@@ -21,13 +21,14 @@ try{
 
 let show = async (req, res) => {
   try{
-    let id = req.params.id;
-    let data = await database.getPacient(id)
+    let email = req.params.email;
+    console.log(email)
+    let data = await database.getPacientWithEmail(email)
 
     return res.status(200).json({
      status: 'success',
      data: data,
-     message: `Retrieved pacient of id: ${id}`
+     message: `Retrieved pacient of email: ${email}`
    });
   }
   catch (err) {

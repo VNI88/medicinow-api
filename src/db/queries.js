@@ -115,11 +115,25 @@ let getDoctor = (id) => {
   return db.many(query, id);
 };
 
+let getFreeDoctors = (body) => {
+  let query =
+  `
+  SELECT first_name, last_name, office_id
+  FROM DOCTORS
+  WHERE doctor_id NOT IN
+                  (SELECT doctor_id
+                  FROM APPOINTMENTS
+                  WHERE appointment_day = \${appointment_day} AND  appointment_hour  = \${appointment_hour});
+  `;
+
+  return db.many(query, body);
+};
+
 let createDoctor = (body) => {
   let query =
   `
-  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm)
-  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm})
+  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality)
+  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality})
   RETURNING id
   `;
 
@@ -242,6 +256,17 @@ let getPacient = (id) => {
   return db.one(query, id);
 };
 
+let getPacientWithEmail = (email) => {
+  let query =
+  `
+  SELECT *
+  FROM PACIENTS
+  WHERE email = \$1
+  `;
+
+return  db.result(query, email)
+};
+
 let createPacient = (body) => {
   let query =
   `
@@ -343,7 +368,6 @@ let deleteAppointment = (id) => {
 return  db.result(query, id)
 };
 
-
 module.exports = {
   getAllMedicalAgreements:  getAllMedicalAgreements,
   getMedicalAgreement:      getMedicalAgreement,
@@ -351,6 +375,7 @@ module.exports = {
   updateMedicalAgreement:   updateMedicalAgreement,
   deleteMedicalAgreement:   deleteMedicalAgreement,
   getAllDoctors:            getAllDoctors,
+  getFreeDoctors:            getFreeDoctors,
   getDoctor:                getDoctor,
   createDoctor:            createDoctor,
   verifyDoctor:             verifyDoctor,
@@ -363,6 +388,7 @@ module.exports = {
   deleteOffice:             deleteOffice,
   getAllPacients:           getAllPacients,
   getPacient:               getPacient,
+  getPacientWithEmail:      getPacientWithEmail,
   createPacient:            createPacient,
   verifyPacient:           verifyPacient,
   updatePacient:            updatePacient,

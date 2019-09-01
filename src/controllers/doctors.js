@@ -38,10 +38,28 @@ let show = async (req, res) => {
   }
 };
 
+let showFreeDoctors = async (req, res) => {
+  try{
+    let body = req.body;
+    let data = await database.getFreeDoctors(body)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved doctors with free calendar days.`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
 let create = async (req, res) => {
   try{
     let body = req.body;
-    
     body.password = await encryptPass(body.password);
     let data = await database.createDoctor(body);
 
@@ -109,9 +127,10 @@ let destroy = async (req, res) => {
 }
 
 module.exports = {
-  index:     index,
-  show:      show,
-  create:    create,
-  update:   update,
-  destroy:  destroy
+  index:            index,
+  show:             show,
+  showFreeDoctors:  showFreeDoctors,
+  create:           create,
+  update:           update,
+  destroy:          destroy
 }
