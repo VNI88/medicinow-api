@@ -109,7 +109,7 @@ let getDoctor = (id) => {
   `
   SELECT *
   FROM DOCTORS
-  WHERE id = \$1
+  WHERE doctor_id = \$1
   `;
 
   return db.many(query, id);
@@ -130,11 +130,12 @@ let getFreeDoctors = (body) => {
 };
 
 let createDoctor = (body) => {
+
   let query =
   `
   INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality)
   VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality})
-  RETURNING id
+  RETURNING doctor_id
   `;
 
   return db.one(query, body);
@@ -151,26 +152,26 @@ let verifyDoctor = (email) => {
   return db.oneOrNone(query, email);
 };
 
-let updateDoctor = (id, body) => {
+let updateDoctor = (doctor_id, body) => {
   let query =
   `
   UPDATE DOCTORS
   SET first_name = \${first_name} , last_name = \${last_name}, telephone = \${telephone}, email = \${email}, password = \${password}
-  WHERE id = ${id}
+  WHERE doctor_id = ${doctor_id}
   `;
 
   return db.result(query, body);
 };
 
-let deleteDoctor = (id) => {
+let deleteDoctor = (doctor_id) => {
   let query =
   `
   DELETE
   FROM DOCTORS
-  WHERE id = \$1
+  WHERE doctor_id = \$1
   `;
 
-return  db.result(query, id)
+return  db.result(query, doctor_id)
 };
 
 

@@ -64,7 +64,7 @@ let create = async (req, res) => {
     let data = await database.createDoctor(body);
 
     let userId = {
-      id: data.id
+      id: data.doctor_id
     };
 
     return res.status(201).json({
