@@ -283,7 +283,7 @@ let verifyPacient = (body) => {
   `
   SELECT *
   FROM PACIENTS
-  WHERE email = \${email} AND password = \${password}
+  WHERE email = \${email}
   `;
 
   return db.oneOrNone(query, body);

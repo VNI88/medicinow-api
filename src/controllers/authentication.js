@@ -37,14 +37,24 @@ let create = async (req, res) => {
 
       if (realPacient){
         let userId = {
-          id: realPacient.id
+          id: realPacient.id,
         };
-
-        return res.status(200).json({
-         status: 'success',
-         token: generateToken(userId),
-         message: `Token created successfully`
-        });
+        if (pacientValidation){
+          return res.status(200).json({
+           status: 'success',
+           token: generateToken(userId),
+           name: `${pacientValidation.first_name} ${pacientValidation.last_name}`,
+           message: `Token created successfully`
+          });
+        }
+        else{
+          return res.status(200).json({
+           status: 'success',
+           token: generateToken(userId),
+           name:`${doctorValidation.first_name} ${doctorValidation.last_name}`,
+           message: `Token created successfully`
+          });
+        }
       }
       else {
         return res.status(401).json({
