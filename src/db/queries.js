@@ -115,7 +115,7 @@ let getDoctor = (id) => {
   return db.many(query, id);
 };
 
-let getFreeDoctors = (body) => {
+let getFreeDoctors = (queryParameter) => {
   let query =
   `
   SELECT first_name, last_name, office_id
@@ -126,7 +126,7 @@ let getFreeDoctors = (body) => {
                   WHERE appointment_day = \${appointment_day} AND  appointment_hour  = \${appointment_hour});
   `;
 
-  return db.many(query, body);
+  return db.many(query, queryParameter);
 };
 
 let createDoctor = (body) => {

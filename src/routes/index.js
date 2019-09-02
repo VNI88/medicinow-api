@@ -41,7 +41,7 @@ Controller: Doctors
 router.get('/api/v1/doctors/:doctor_id', doctors.show);
 
 //GET just doctors with free agenda
-router.get('/api/v1/doctors', doctors.showFreeDoctors);
+router.get('/api/v1/doctors/:appointment_day/:appointment_hour', doctors.showFreeDoctors);
 
 // POST a doctor
 router.post('/api/v1/doctors', doctors.create);

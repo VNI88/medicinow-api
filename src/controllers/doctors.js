@@ -40,8 +40,9 @@ let show = async (req, res) => {
 
 let showFreeDoctors = async (req, res) => {
   try{
-    let body = req.body;
-    let data = await database.getFreeDoctors(body)
+    let queryParameter = req.params;
+    console.log(queryParameter)
+    let data = await database.getFreeDoctors(queryParameter)
 
     return res.status(200).json({
      status: 'success',
