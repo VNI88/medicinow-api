@@ -1,0 +1,125 @@
+swagger: "2.0"
+info:
+  title: Medicinow API
+  The api manages the pacient and doctors flows like   appointments schedule, appointments alerts, appointments payments and others.
+  version: 1.0.1
+  host: mednow.herokuapp.com/
+  basePath: /api/v1
+  schemes:
+    - https
+paths:
+/medical_agreements
+    get:
+      summary: Returns a list of medical agreements.
+      description: Returns a list of all medical agreements
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Retrieved all medical agreements
+        404:
+          description: Return a block containg the error
+    post:
+      summary: Create a medical agreements.
+      description: Post a new medical agreement.
+      produces:
+      - application/json
+      responses:
+      201:
+        description: Inserted medical agreement with success.
+      404:
+        description: Return a block containg the error
+/medical_agreements/:id
+    get:
+      summary: Returns a medical agreement.
+      description: Returns a medical agreement based on ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Retrieved medical agreement of id: ${id}
+        404:
+          description: Return a block containg the error
+    put:
+      summary: Update a medical agreement.
+      description: Update a medical agreement based on ID
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Return the number of lines updated.
+        404:
+          description: Return a block containg the error
+    delete:
+      summary: Delete a medical agreement.
+      description: Delete a medical agreement based on ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the number of lines deleted.
+        404:
+          description: Return a block containg the error
+/doctors
+    get:
+      summary: Returns a list of doctors.
+      description: Returns a list of all doctors
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Retrieved all doctors.
+        404:
+          description: Return a block containg the error.
+    post:
+      summary: Create a doctor.
+      description: Post a new doctor.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Inserted a doctor with success.
+        404:
+          description: Return a block containg the error
+/doctors/:id
+    get:
+      summary: Returns a doctor.
+      description: Returns a doctor based on ID
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Retrieved doctor of id: ${id}
+        404:
+          description: Return a block containg the error
+    put:
+      summary: Update a doctor.
+      description: Update a doctor based on ID
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Return the number of doctor updated.
+        404:
+          description: Return a block containg the error
+    delete:
+      summary: Delete a doctor.
+      description: Delete a doctor based on ID.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the number of doctors deleted.
+        404:
+          description: Return a block containg the error
+/doctors/:appointment_day/:appointment_hour/
+    get:
+      summary: Return a list of doctors with free agenda.
+      description: Get all doctors with free agenda.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Retrieved doctors with free calendar days.
+        404:
+          description: Return a block containg the error.
