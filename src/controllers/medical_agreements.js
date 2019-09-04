@@ -22,11 +22,11 @@ let show = async (req, res) => {
   try{
     let brand = req.params.brand;
     let data = await database.getMedicalAgreement(brand)
-
+    
     return res.status(200).json({
      status: 'success',
      data: data,
-     message: `Retrieved medical agreement of id: ${id}`
+     message: `Retrieved medical agreement of brand: ${brand}`
    });
   }
   catch (err) {
