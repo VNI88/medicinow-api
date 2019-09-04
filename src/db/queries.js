@@ -47,15 +47,15 @@ let getAllMedicalAgreements = () => {
   // }
 };
 
-let getMedicalAgreement = (id) => {
+let getMedicalAgreement = (medical_agreement_id) => {
   let query =
   `
   SELECT *
   FROM MEDICAL_AGREEMENTS
-  WHERE id = \$1
+  WHERE medical_agreement_id = \$1
   `;
 
-  return db.many(query, id);
+  return db.many(query, medical_agreement_id);
 };
 
 let createMedicalAgreement = (body) => {
@@ -68,26 +68,26 @@ let createMedicalAgreement = (body) => {
   db.none( query, body);
 };
 
-let updateMedicalAgreement = (id, body) => {
+let updateMedicalAgreement = (medical_agreement_id, body) => {
   let query =
   `
   UPDATE MEDICAL_AGREEMENTS
   SET brand = \${brand} , plan = \${plan}
-  WHERE id = ${id}
+  WHERE medical_agreement_id = ${medical_agreement_id}
   `;
 
   return db.result(query, body);
 };
 
-let deleteMedicalAgreement = (id) => {
+let deleteMedicalAgreement = (medical_agreement_id) => {
   let query =
   `
   DELETE
   FROM MEDICAL_AGREEMENTS
-  WHERE id = \$1
+  WHERE medical_agreement_id = \$1
   `;
 
-return  db.result(query, id)
+return  db.result(query, medical_agreement_id)
 };
 
 /**********************************************
@@ -189,15 +189,15 @@ let getAllOffices = () => {
 
 };
 
-let getOffice = (id) => {
+let getOffice = (office_id) => {
   let query =
   `
   SELECT *
   FROM OFFICES
-  WHERE id = $1
+  WHERE office_id = $1
   `;
 
-  return db.many(query, id);
+  return db.many(query, office_id);
 };
 
 let createOffice = (body) => {
@@ -210,26 +210,26 @@ let createOffice = (body) => {
   db.none( query, body);
 };
 
-let updateOffice = (id, body) => {
+let updateOffice = (office_id, body) => {
   let query =
   `
   UPDATE OFFICES
   SET brand = \${brand} , plan = \${plan}
-  WHERE id = ${id}
+  WHERE office_id = ${office_id}
   `;
 
   return db.result(query, body);
 };
 
-let deleteOffice = (id) => {
+let deleteOffice = (office_id) => {
   let query =
   `
   DELETE
   FROM OFFICES
-  WHERE id = \$1
+  WHERE office_id = \$1
   `;
 
-return  db.result(query, id)
+return  db.result(query, office_id)
 };
 
 /**********************************************
@@ -246,15 +246,15 @@ let getAllPacients = () => {
 
 };
 
-let getPacient = (id) => {
+let getPacient = (pacient_id) => {
   let query =
   `
   SELECT *
   FROM PACIENTS
-  WHERE id = $1
+  WHERE pacient_id = $1
   `;
 
-  return db.one(query, id);
+  return db.one(query, pacient_id);
 };
 
 let getPacientWithEmail = (email) => {
@@ -273,7 +273,7 @@ let createPacient = (body) => {
   `
   INSERT INTO PACIENTS (first_name, last_name, telephone, email, password)
   VALUES (\${first_name}, \${last_name}, \${telephone}, \${email}, \${password})
-  RETURNING id
+  RETURNING pacient_id
   `;
 
   return db.one(query, body);
@@ -290,26 +290,26 @@ let verifyPacient = (body) => {
   return db.oneOrNone(query, body);
 };
 
-let updatePacient = (id, body) => {
+let updatePacient = (pacient_id, body) => {
   let query =
   `
   UPDATE PACIENTS
   SET first_name = \${first_name} , last_name = \${last_name}, telephone = \${telephone}, email = \${email}, password = \${password}
-  WHERE id = ${id}
+  WHERE pacient_id = ${pacient_id}
   `;
 
   return db.result(query, body);
 };
 
-let deletePacient = (id) => {
+let deletePacient = (pacient_id) => {
   let query =
   `
   DELETE
   FROM PACIENTS
-  WHERE id = \$1
+  WHERE pacient_id = \$1
   `;
 
-return  db.result(query, id)
+return  db.result(query, pacient_id)
 };
 
 /**********************************************
@@ -326,47 +326,47 @@ let getAllAppointments = () => {
 
 };
 
-let getAppointment = (id) => {
+let getAppointment = (appointment_id) => {
   let query =
   `
   SELECT *
   FROM APPOINTMENTS
-  WHERE id = $1
+  WHERE appointment_id = $1
   `;
 
-  return db.one(query, id);
+  return db.one(query, appointment_id);
 };
 
 let createAppointment = (body) => {
   let query =
   `
-  INSERT INTO APPOINTMENTS (pacient_id, doctor_id, medical_agreement_id, appointment_day, appointment_hour)
-  VALUES (\${pacient_id}, \${doctor_id}, \${medical_agreement_id}, \${appointment_day}, \${appointment_hour})
+  INSERT INTO APPOINTMENTS (pacient_appointment_id, doctor_appointment_id, medical_agreement_appointment_id, appointment_day, appointment_hour)
+  VALUES (\${pacient_appointment_id}, \${doctor_appointment_id}, \${medical_agreement_appointment_id}, \${appointment_day}, \${appointment_hour})
   `;
 
   db.none( query, body);
 };
 
-let updateAppointment = (id, body) => {
+let updateAppointment = (appointment_id, body) => {
   let query =
   `
   UPDATE APPOINTMENTS
-  SET pacient_id = \${pacient_id} , doctor_id = \${doctor_id}, medical_agreement_id = \${medical_agreement_id}, appointment_day = \${appointment_day}, appointment_hour = \${appointment_hour}, confirmed = \${confirmed}, canceled = \${canceled}
-  WHERE id = ${id}
+  SET pacient_appointment_id = \${pacient_appointment_id} , doctor_appointment_id = \${doctor_appointment_id}, medical_agreement_appointment_id = \${medical_agreement_appointment_id}, appointment_day = \${appointment_day}, appointment_hour = \${appointment_hour}, confirmed = \${confirmed}, canceled = \${canceled}
+  WHERE appointment_id = ${appointment_id}
   `;
 
   return db.result(query, body);
 };
 
-let deleteAppointment = (id) => {
+let deleteAppointment = (appointment_id) => {
   let query =
   `
   DELETE
   FROM APPOINTMENTS
-  WHERE id = \$1
+  WHERE appointment_id = \$1
   `;
 
-return  db.result(query, id)
+return  db.result(query, appointment_id)
 };
 
 module.exports = {
