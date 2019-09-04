@@ -118,7 +118,7 @@ let getDoctor = (id) => {
 let getFreeDoctors = (queryParameter) => {
   let query =
   `
-  SELECT first_name, last_name, office_id
+  SELECT doctor_id, first_name, last_name, office_id
   FROM DOCTORS
   WHERE doctor_id NOT IN
                   (SELECT doctor_id
