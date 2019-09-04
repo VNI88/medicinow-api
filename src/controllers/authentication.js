@@ -45,7 +45,7 @@ let create = async (req, res) => {
            token: generateToken(userId),
            name: `${pacientValidation.first_name} ${pacientValidation.last_name}`,
            flag: 'pacient',
-           id: pacientValidation.id,
+           id: pacientValidation.pacient_id,
            message: `Token created successfully`
           });
         }
@@ -55,7 +55,7 @@ let create = async (req, res) => {
            token: generateToken(userId),
            name:`${doctorValidation.first_name} ${doctorValidation.last_name}`,
            flag: 'doctor',
-           id: doctorValidation.id,
+           id: doctorValidation.doctor_id,
            message: `Token created successfully`
           });
         }
