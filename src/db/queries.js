@@ -340,8 +340,8 @@ let getAppointment = (doctor_id) => {
 let createAppointment = (body) => {
   let query =
   `
-  INSERT INTO APPOINTMENTS (pacient_appointment_id, doctor_appointment_id, medical_agreement_appointment_id, appointment_day, appointment_hour)
-  VALUES (\${pacient_appointment_id}, \${doctor_appointment_id}, \${medical_agreement_appointment_id}, \${appointment_day}, \${appointment_hour})
+  INSERT INTO APPOINTMENTS (pacient_id, doctor_id, medical_agreement_id, appointment_day, appointment_hour)
+  VALUES (\${pacient_id}, \${doctor_id}, \${medical_agreement_id}, \${appointment_day}, \${appointment_hour})
   `;
 
   db.none( query, body);
