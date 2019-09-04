@@ -326,15 +326,15 @@ let getAllAppointments = () => {
 
 };
 
-let getAppointment = (appointment_id) => {
+let getAppointment = (doctor_id) => {
   let query =
   `
   SELECT *
   FROM APPOINTMENTS
-  WHERE appointment_id = $1
+  WHERE doctor_id = \$1
   `;
 
-  return db.one(query, appointment_id);
+  return db.one(query, doctor_id);
 };
 
 let createAppointment = (body) => {
