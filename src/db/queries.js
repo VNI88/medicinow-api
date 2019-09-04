@@ -47,15 +47,15 @@ let getAllMedicalAgreements = () => {
   // }
 };
 
-let getMedicalAgreement = (medical_agreement_id) => {
+let getMedicalAgreement = (medical_agreement_name) => {
   let query =
   `
   SELECT *
   FROM MEDICAL_AGREEMENTS
-  WHERE medical_agreement_id = \$1
+  WHERE brand = \$1
   `;
 
-  return db.many(query, medical_agreement_id);
+  return db.many(query, medical_agreement_name);
 };
 
 let createMedicalAgreement = (body) => {

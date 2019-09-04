@@ -19,7 +19,7 @@ Controller: Medical Agreements
 router.get('/api/v1/medical_agreements', medical_agreements.index);
 
 //GET just one medical agreement
-router.get('/api/v1/medical_agreements/:id', medical_agreements.show);
+router.get('/api/v1/medical_agreements/:brand', medical_agreements.show);
 
 // POST a medical agreement
 router.post('/api/v1/medical_agreements', auth.verifyToken, medical_agreements.create);

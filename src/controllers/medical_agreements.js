@@ -20,8 +20,8 @@ let  index = async (req, res) => {
 
 let show = async (req, res) => {
   try{
-    let id = req.params.id;
-    let data = await database.getMedicalAgreement(id)
+    let brand = req.params.brand;
+    let data = await database.getMedicalAgreement(brand)
 
     return res.status(200).json({
      status: 'success',
