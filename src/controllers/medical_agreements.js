@@ -20,13 +20,13 @@ let  index = async (req, res) => {
 
 let show = async (req, res) => {
   try{
-    let brand = req.params.brand;
-    let data = await database.getMedicalAgreement(brand)
+    let params = req.params;
+    let data = await database.getMedicalAgreement(params)
     
     return res.status(200).json({
      status: 'success',
      data: data,
-     message: `Retrieved medical agreement of brand: ${brand}`
+     message: `Retrieved medical agreement.`
    });
   }
   catch (err) {

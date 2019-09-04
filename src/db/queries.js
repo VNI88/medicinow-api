@@ -47,15 +47,15 @@ let getAllMedicalAgreements = () => {
   // }
 };
 
-let getMedicalAgreement = (brand) => {
+let getMedicalAgreement = (params) => {
   let query =
   `
   SELECT *
   FROM MEDICAL_AGREEMENTS
-  WHERE brand = '${brand}'
+  WHERE brand = \${brand} AND plan = \${plan}
   `;
-  
-  return db.result(query, brand);
+
+  return db.one(query, params);
 };
 
 let createMedicalAgreement = (body) => {
@@ -73,7 +73,7 @@ let updateMedicalAgreement = (medical_agreement_id, body) => {
   `
   UPDATE MEDICAL_AGREEMENTS
   SET brand = \${brand} , plan = \${plan}
-  WHERE medical_agreement_id = ${medical_agreement_id}
+  WHERE medical_agreement_id = \${medical_agreement_id}
   `;
 
   return db.result(query, body);
