@@ -192,6 +192,7 @@ let createOffice = (body) => {
   `
   INSERT INTO OFFICES (name, street_address, accepted_medical_agreement_id)
   VALUES (\${name}, \${street_address}, \${accepted_medical_agreement_id})
+  RETURNING office_id
   `;
 
   db.none(query, body);
