@@ -41,7 +41,6 @@ let create = async (req, res) => {
   try{
     let body = req.body;
     let data = await database.createOffice(body)
-
     return res.status(201).json({
      status: 'success',
      message: `Inserted office with success.`,

@@ -195,7 +195,7 @@ let createOffice = (body) => {
   RETURNING office_id
   `;
 
-  db.one(query, body);
+  return db.one(query, body);
 };
 
 let updateOffice = (office_id, body) => {
