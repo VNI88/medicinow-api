@@ -184,7 +184,7 @@ let getOffice = (office_id) => {
   WHERE office_id = \$1
   `;
 
-  return db.many(query, office_id);
+  return db.one(query, office_id);
 };
 
 let createOffice = (body) => {
