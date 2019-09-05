@@ -60,7 +60,7 @@ Controller: Offices
 router.get('/api/v1/offices',  offices.index);
 
 //GET just one office
-router.get('/api/v1/offices/:street_address', auth.verifyToken, offices.show);
+router.get('/api/v1/offices/:office_id', auth.verifyToken, offices.show);
 
 // POST a office
 router.post('/api/v1/offices', offices.create);
