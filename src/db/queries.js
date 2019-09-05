@@ -120,8 +120,8 @@ let createDoctor = (body) => {
 
   let query =
   `
-  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality)
-  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality})
+  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality, office_id)
+  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality}, \${office_id})
   RETURNING doctor_id
   `;
 
