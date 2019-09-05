@@ -176,15 +176,15 @@ let getAllOffices = () => {
 
 };
 
-let getOffice = (streeAddress) => {
+let getOffice = (office_id) => {
   let query =
   `
   SELECT *
   FROM OFFICES
-  WHERE street_address = \$1
+  WHERE office_id = \$1
   `;
 
-  return db.many(query, street_address);
+  return db.many(query, office_id);
 };
 
 let createOffice = (body) => {

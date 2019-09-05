@@ -20,13 +20,13 @@ try{
 
 let show = async (req, res) => {
   try{
-    let streetAddress = req.params.streetAddress;
-    let data = await database.getOffice(streetAddress)
+    let office_id = req.params.office_id;
+    let data = await database.getOffice(office_id)
 
     return res.status(200).json({
      status: 'success',
      data: data,
-     message: `Retrieved office of id: ${id}`
+     message: `Retrieved office.`
    });
   }
   catch (err) {
