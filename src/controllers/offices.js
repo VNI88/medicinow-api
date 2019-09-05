@@ -40,7 +40,6 @@ let show = async (req, res) => {
 let create = async (req, res) => {
   try{
     let body = req.body;
-    body = body.replace(/"/g, "'");
     let data = await database.createOffice(body)
 
     return res.status(201).json({
