@@ -190,12 +190,12 @@ let getOffice = (streeAddress) => {
 let createOffice = (body) => {
   let query =
   `
-  INSERT INTO OFFICES (name, street_address, accepted_medical_agreement_id)
-  VALUES (\${name}, \${street_address}, \${accepted_medical_agreement_id})
+  INSERT INTO OFFICES ( street_address)
+  VALUES ( \${street_address})
   RETURNING office_id
   `;
 
-  db.none(query, body);
+  db.one(query, body);
 };
 
 let updateOffice = (office_id, body) => {
