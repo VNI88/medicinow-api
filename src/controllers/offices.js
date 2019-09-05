@@ -20,8 +20,8 @@ try{
 
 let show = async (req, res) => {
   try{
-    let id = req.params.id;
-    let data = await database.getOffice(id)
+    let streetAddress = req.params.streetAddress;
+    let data = await database.getOffice(streetAddress)
 
     return res.status(200).json({
      status: 'success',

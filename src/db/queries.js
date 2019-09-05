@@ -25,26 +25,13 @@ Queries for /medical_agreements endpoint
 ***********************************************/
 
 let getAllMedicalAgreements = () => {
-  // if ( queryParameter ==  null ) {
+  let query =
+  `
+  SELECT *
+  FROM MEDICAL_AGREEMENTS
+   `;
 
-    let query =
-    `
-    SELECT *
-    FROM MEDICAL_AGREEMENTS
-     `;
-  //
-  //   return  db.any(query);
-  // }
-  // else {
-  //   let query =
-  //   `
-  //   SELECT *
-  //   FROM MEDICAL_AGREEMENTS
-  //   WHERE
-  //    `;
-
-    return  db.any(query);
-  // }
+  return  db.any(query);
 };
 
 let getMedicalAgreement = (params) => {
@@ -189,25 +176,25 @@ let getAllOffices = () => {
 
 };
 
-let getOffice = (office_id) => {
+let getOffice = (streeAddress) => {
   let query =
   `
   SELECT *
   FROM OFFICES
-  WHERE office_id = $1
+  WHERE street_address = \$1
   `;
 
-  return db.many(query, office_id);
+  return db.many(query, street_address);
 };
 
 let createOffice = (body) => {
   let query =
   `
-  INSERT INTO OFFICES (brand, plan)
-  VALUES (\${brand}, \${plan})
+  INSERT INTO OFFICES (name, street_address, accepted_medical_agreement_id)
+  VALUES (\${name}, \${street_address}, \${accepted_medical_agreement_id})
   `;
 
-  db.none( query, body);
+  db.none(query, body);
 };
 
 let updateOffice = (office_id, body) => {
@@ -251,7 +238,7 @@ let getPacient = (pacient_id) => {
   `
   SELECT *
   FROM PACIENTS
-  WHERE pacient_id = $1
+  WHERE pacient_id = \$1
   `;
 
   return db.one(query, pacient_id);
