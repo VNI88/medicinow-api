@@ -44,7 +44,8 @@ let create = async (req, res) => {
 
     return res.status(201).json({
      status: 'success',
-     message: `Inserted office with success.`
+     message: `Inserted office with success.`,
+     office_id: data.office_id
    });
   }
   catch (err) {
