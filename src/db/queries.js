@@ -322,7 +322,7 @@ let getAppointment = (doctor_id) => {
   WHERE doctor_id = \$1
   `;
 
-  return db.one(query, doctor_id);
+  return db.many(query, doctor_id);
 };
 
 let createAppointment = (body) => {
