@@ -1,5 +1,0 @@
-ALTER TABLE PACIENTS
-  DROP CONSTRAINT pacients_password_key;
-
-ALTER TABLE DOCTORS
-  DROP CONSTRAINT doctors_password_key;

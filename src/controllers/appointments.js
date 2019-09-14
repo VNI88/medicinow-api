@@ -37,6 +37,25 @@ let show = async (req, res) => {
   }
 };
 
+let showDayList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getDayAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved the appointments of the day`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
 let create = async (req, res) => {
   try{
     let body = req.body;
@@ -101,9 +120,10 @@ let destroy = async (req, res) => {
 }
 
 module.exports = {
-  index:    index,
-  show:     show,
-  update:   update,
-  create:   create,
-  destroy:  destroy
+  index:           index,
+  show:            show,
+  showDayList:     showDayList,
+  update:          update,
+  create:          create,
+  destroy:         destroy
 }

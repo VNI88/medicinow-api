@@ -325,6 +325,25 @@ let getAppointment = (doctor_id) => {
   return db.many(query, doctor_id);
 };
 
+let getDayAppointments = (params) => {
+  let query =
+  `
+  SELECT d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE a.appointment_day = \${appointment_day} AND ( d.doctor_id = \${doctor_id} OR p.pacient_id = \${pacient_id});
+  `;
+
+  return db.many(query, params);
+};
+
 let createAppointment = (body) => {
   let query =
   `
@@ -384,6 +403,7 @@ module.exports = {
   deletePacient:            deletePacient,
   getAllAppointments:       getAllAppointments,
   getAppointment:           getAppointment,
+  getDayAppointments:       getDayAppointments,
   createAppointment:        createAppointment,
   updateAppointment:        updateAppointment,
   deleteAppointment:        deleteAppointment

@@ -100,6 +100,12 @@ router.get('/api/v1/appointments',  auth.verifyToken, appointments.index);
 //GET just one appointment
 router.get('/api/v1/appointments/:id', auth.verifyToken, appointments.show);
 
+// GET the doctor appointments of the day
+router.get('/api/v1/appointments/doctor_day_list/:date/:doctor_id', auth.verifyToken, appointments.showDayList);
+
+// GET the pacient appointments of the day
+router.get('/api/v1/appointments/pacient_day_list/:date/:pacient_id', auth.verifyToken, appointments.showDayList);
+
 // POST a appointment
 router.post('/api/v1/appointments', auth.verifyToken, appointments.create);
 
