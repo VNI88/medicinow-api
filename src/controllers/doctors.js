@@ -62,7 +62,7 @@ let create = async (req, res) => {
     let body = req.body;
     body.password = await encryptPass(body.password);
     let data = await database.createDoctor(body);
-    
+
     let userId = {
       id: data.doctor_id
     };
@@ -70,6 +70,7 @@ let create = async (req, res) => {
     return res.status(201).json({
      status: 'success',
      token: generateToken(userId),
+     id: doctor.doctor_id,
      message: 'Doctor registered with success.'
    });
   }
