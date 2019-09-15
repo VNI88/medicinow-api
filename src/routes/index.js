@@ -7,6 +7,7 @@ const doctors = require('../controllers/doctors.js');
 const pacients = require('../controllers/pacients.js');
 const appointments = require('../controllers/appointments.js');
 const authentication = require('../controllers/authentication.js');
+const doctorsData = require('../controllers/doctors_data.js');
 const auth = require('../middleware/auth.js');
 
 let router = express.Router();
@@ -120,6 +121,21 @@ Controller: authentication
 ***********************************************/
 
 //POST token
-router.post('/api/v1/sign_in', authentication.create)
+router.post('/api/v1/sign_in', authentication.create);
+
+/**********************************************
+Controller: doctors_data
+***********************************************/
+
+//POST doctors data
+router.get('/api/v1/doctors_data/:id', auth.verifyToken, doctorsData.show);
+
+//POST doctors data
+router.post('/api/v1/doctors_data', doctorsData.create);
+
+//PUT doctors data
+router.put('/api/v1/doctors_data', doctorsData.update);
+
+
 
 module.exports =  router;

@@ -62,7 +62,7 @@ let create = async (req, res) => {
     let body = req.body;
     body.password = await encryptPass(body.password);
     let data = await database.createDoctor(body);
-
+    
     let userId = {
       id: data.doctor_id
     };

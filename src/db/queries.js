@@ -375,6 +375,40 @@ let deleteAppointment = (appointment_id) => {
 return  db.result(query, appointment_id)
 };
 
+let createDoctorData = (body) => {
+  let query =
+  `
+  INSERT INTO DOCTORS_DATA (doctor_id, medical_agreement)
+  VALUES (\${doctor_id}, \${medical_agreement})
+  `;
+
+  return db.none(query, body);
+};
+
+let updateDoctorDataMedicalAgreement = (medical_agreement_id) => {
+  let query =
+  `
+  UPDATE DOCTORS_DATA SET medical_agreement_id = \${medical_agreement_id}
+  WHERE doctor_id = \${doctor_id}
+  `;
+
+  return db.none(query, medical_agreement_id);
+};
+
+let getDoctorData = (param) => {
+  let query =
+  `
+  SELECT o.street_address, m.brand, m.plan
+  FROM doctors_data dd
+  INNER JOIN offices o
+  ON (dd.office_id = o.office_id)
+  INNER JOIN medical_agreements m
+  ON (dd.medical_agreement_id = m.medical_agreement_id)
+  WHERE dd.doctor_id = \${doctor_id}
+  `;
+
+  return db.one(query, param);
+};
 module.exports = {
   getAllMedicalAgreements:  getAllMedicalAgreements,
   getMedicalAgreement:      getMedicalAgreement,
@@ -405,5 +439,8 @@ module.exports = {
   getDayAppointments:       getDayAppointments,
   createAppointment:        createAppointment,
   updateAppointment:        updateAppointment,
-  deleteAppointment:        deleteAppointment
+  deleteAppointment:        deleteAppointment,
+  createDoctorData:         createDoctorData,
+  updateDoctorDataMedicalAgreement:  updateDoctorDataMedicalAgreement,
+  getDoctorData:  getDoctorData
 };
