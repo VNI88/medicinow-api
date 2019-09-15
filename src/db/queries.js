@@ -105,7 +105,7 @@ let getDoctor = (id) => {
 let getFreeDoctors = (queryParameter) => {
   let query =
   `
-  SELECT doctor_id, first_name, last_name, office_id, speciality
+  SELECT doctor_id, first_name, last_name, appointment_price ,speciality
   FROM DOCTORS
   WHERE doctor_id NOT IN
                   (SELECT doctor_id
@@ -117,7 +117,6 @@ let getFreeDoctors = (queryParameter) => {
 };
 
 let createDoctor = (body) => {
-
   let query =
   `
   INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality)
