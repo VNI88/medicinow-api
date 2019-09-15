@@ -120,8 +120,8 @@ let createDoctor = (body) => {
 
   let query =
   `
-  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality, office_id)
-  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality}, \${office_id})
+  INSERT INTO DOCTORS (last_name, first_name, telephone, email, password, crm, speciality)
+  VALUES (\${last_name}, \${first_name}, \${telephone}, \${email}, \${password}, \${crm}, \${speciality})
   RETURNING doctor_id
   `;
 
@@ -144,7 +144,7 @@ let updateDoctor = (doctor_id, body) => {
   `
   UPDATE DOCTORS
   SET first_name = \${first_name} , last_name = \${last_name}, telephone = \${telephone}, email = \${email}, password = \${password}
-  WHERE doctor_id = ${doctor_id}
+  WHERE doctor_id = \${doctor_id}
   `;
 
   return db.result(query, body);
