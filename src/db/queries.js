@@ -378,8 +378,8 @@ return  db.result(query, appointment_id)
 let createDoctorData = (body) => {
   let query =
   `
-  INSERT INTO DOCTORS_DATA (doctor_id, office_id)
-  VALUES (\${doctor_id}, \${office_id})
+  INSERT INTO DOCTORS_DATA (doctor_id, office_id, medical_agreement_id)
+  VALUES (\${doctor_id}, \${office_id}, \${medical_agreement_id})
   `;
 
   return db.none(query, body);
