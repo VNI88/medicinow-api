@@ -70,7 +70,7 @@ let create = async (req, res) => {
     return res.status(201).json({
      status: 'success',
      token: generateToken(userId),
-     id: doctor.doctor_id,
+     id: data.doctor_id,
      message: 'Doctor registered with success.'
    });
   }
