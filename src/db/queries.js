@@ -398,7 +398,7 @@ let updateDoctorDataMedicalAgreement = (medical_agreement_id) => {
 let getDoctorData = (param) => {
   let query =
   `
-  SELECT o.street_address, m.brand, m.plan
+  SELECT dd.office_id, o.street_address, dd.medical_agreement_id , m.brand, m.plan
   FROM doctors_data dd
   INNER JOIN offices o
   ON (dd.office_id = o.office_id)
