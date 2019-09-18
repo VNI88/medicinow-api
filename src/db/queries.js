@@ -348,6 +348,7 @@ let createAppointment = (body) => {
   `
   INSERT INTO APPOINTMENTS (pacient_id, doctor_id, medical_agreement_id, office_id, appointment_day, appointment_hour)
   VALUES (\${pacient_id}, \${doctor_id}, \${medical_agreement_id}, \${office_id},\${appointment_day}, \${appointment_hour})
+  RETURNING appointment_id
   `;
 
   db.none( query, body);
