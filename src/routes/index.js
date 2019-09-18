@@ -128,7 +128,7 @@ Controller: doctors_data
 ***********************************************/
 
 //POST doctors data
-router.get('/api/v1/doctors_data/:id', auth.verifyToken, doctorsData.show);
+router.get('/api/v1/doctors_data/:doctor_id', auth.verifyToken, doctorsData.show);
 
 //POST doctors data
 router.post('/api/v1/doctors_data', doctorsData.create);
