@@ -63,6 +63,7 @@ let create = async (req, res) => {
 
     return res.status(201).json({
      status: 'success',
+     data: data,
      message: `Created appointment with success.`
    });
   }
