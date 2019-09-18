@@ -108,7 +108,7 @@ router.get('/api/v1/appointments/doctor_day_list/:appointment_day/:doctor_id', a
 router.get('/api/v1/appointments/pacient_day_list/:date/:pacient_id', auth.verifyToken, appointments.showDayList);
 
 // POST a appointment
-router.post('/api/v1/appointments', auth.verifyToken, appointments.create);
+router.post('/api/v1/new_appointment', auth.verifyToken, appointments.create);
 
 //UPDATE a appointment
 router.put('/api/v1/appointments/:id', auth.verifyToken, appointments.update);
