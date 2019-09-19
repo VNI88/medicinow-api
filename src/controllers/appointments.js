@@ -115,12 +115,12 @@ let create = async (req, res) => {
 
 let update = async (req, res) => {
   try{
-    let appointment_id = req.params.id;
+    let appointment_id = req.params;
     let data = await database.updateAppointment(appointment_id)
 
     return res.status(201).json({
      status: 'success',
-     message: `Updated ${data.rowCount} appointments.`
+     message: `Updated ${data.rowCount}appointments.`
    });
   }
   catch (err) {
