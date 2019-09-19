@@ -327,7 +327,7 @@ let getAppointment = (doctor_id) => {
 let getDoctorDayAppointments = (params) => {
   let query =
   `
-  SELECT d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  SELECT a.appointment_id. first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
   FROM appointments a
   INNER JOIN doctors d
   ON (a.doctor_id = d.doctor_id)
