@@ -381,6 +381,82 @@ let getDoctorCanceledAppointments = (params) => {
   return db.many(query, params);
 };
 
+let getDoctorNextAppointments = (params) => {
+  let query =
+  `
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE d.doctor_id = \${doctor_id} AND a.canceled = false AND a.appointment_day > \${appointment_day}
+  `;
+
+  return db.many(query, params);
+};
+
+let getDoctorPastAppointments = (params) => {
+  let query =
+  `
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE d.doctor_id = \${doctor_id} AND a.canceled = false AND a.appointment_day < \${appointment_day}
+  `;
+
+  return db.many(query, params);
+};
+
+let getPacientNextAppointments = (params) => {
+  let query =
+  `
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE p.pacient_id = \${pacient_id} AND a.canceled = false AND a.appointment_day > \${appointment_day}
+  `;
+
+  return db.many(query, params);
+};
+
+let getPacientPastAppointments = (params) => {
+  let query =
+  `
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE p.pacient_id = \${pacient_id} AND a.canceled = false AND a.appointment_day < \${appointment_day}
+  `;
+
+  return db.many(query, params);
+};
+
 let createAppointment = (body) => {
   let query =
   `
@@ -477,7 +553,11 @@ module.exports = {
   getAppointment:             getAppointment,
   getDoctorDayAppointments:   getDoctorDayAppointments,
   getPacientDayAppointments:  getPacientDayAppointments,
+  getPacientNextAppointments:  getDoctorNextAppointments,
+  getPacientPastAppointments:  getDoctorPastAppointments,
   getDoctorCanceledAppointments:  getDoctorCanceledAppointments,
+  getDoctorNextAppointments:  getDoctorNextAppointments,
+  getDoctorPastAppointments:  getDoctorPastAppointments,
   createAppointment:          createAppointment,
   updateAppointment:          updateAppointment,
   deleteAppointment:          deleteAppointment,

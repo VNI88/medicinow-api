@@ -75,6 +75,82 @@ let showDoctorCanceledList = async (req, res) => {
   }
 };
 
+let showDoctorPastList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getDoctorPastAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved past appointments`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
+let showDoctorNextList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getDoctorNextAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved future appointments`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
+let showPacientPastList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getPacientPastAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved past appointments`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
+let showPacientNextList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getPacientNextAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved future appointments`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
 let showPacientDayList = async (req, res) => {
   try{
     let params = req.params;
@@ -162,7 +238,11 @@ module.exports = {
   show:               show,
   showDoctorDayList:  showDoctorDayList,
   showDoctorCanceledList:  showDoctorCanceledList,
+  showDoctorPastList:  showDoctorPastList,
+  showDoctorNextList:  showDoctorNextList,
   showPacientDayList:  showPacientDayList,
+  showPacientNextList:  showPacientNextList,
+  showPacientPastList:  showPacientPastList,
   update:             update,
   create:             create,
   destroy:            destroy

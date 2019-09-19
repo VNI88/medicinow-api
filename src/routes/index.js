@@ -107,8 +107,20 @@ router.get('/api/v1/appointments/doctor_day_list/:appointment_day/:doctor_id', a
 // GET the doctor appointments of the day
 router.get('/api/v1/appointments/doctor_canceled_list/:doctor_id', auth.verifyToken, appointments.showDoctorCanceledList);
 
+// GET the doctor appointments of the day
+router.get('/api/v1/appointments/doctor_next_list/:doctor_id', auth.verifyToken, appointments.showDoctorNextList);
+
+// GET the doctor appointments of the day
+router.get('/api/v1/appointments/doctor_past_list/:doctor_id', auth.verifyToken, appointments.showDoctorPastList);
+
 // GET the pacient appointments of the day
 router.get('/api/v1/appointments/pacient_day_list/:appointment_day/:pacient_id', auth.verifyToken, appointments.showPacientDayList);
+
+// GET the pacient appointments of the day
+router.get('/api/v1/appointments/pacient_next_list/:appointment_day/:pacient_id', auth.verifyToken, appointments.showPacientNextList);
+
+// GET the pacient appointments of the day
+router.get('/api/v1/appointments/pacient_past_list/:appointment_day/:pacient_id', auth.verifyToken, appointments.showPacientPastList);
 
 // POST a appointment
 router.post('/api/v1/appointments', auth.verifyToken, appointments.create);
