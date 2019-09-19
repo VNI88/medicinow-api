@@ -114,10 +114,10 @@ router.get('/api/v1/appointments/pacient_day_list/:appointment_day/:pacient_id',
 router.post('/api/v1/appointments', auth.verifyToken, appointments.create);
 
 //UPDATE a appointment
-router.put('/api/v1/appointments/:id', auth.verifyToken, appointments.update);
+router.put('/api/v1/appointments/:appointment_id', auth.verifyToken, appointments.update);
 
 //DELETE one appointment from database
-router.delete('/api/v1/appointments/:id', auth.verifyToken, appointments.destroy);
+router.delete('/api/v1/appointments/:appointment_id', auth.verifyToken, appointments.destroy);
 
 /**********************************************
 Controller: authentication
