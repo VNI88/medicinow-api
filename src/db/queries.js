@@ -324,7 +324,7 @@ let getAppointment = (doctor_id) => {
   return db.many(query, doctor_id);
 };
 
-let getDayAppointments = (params) => {
+let getDoctorDayAppointments = (params) => {
   let query =
   `
   SELECT d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
@@ -337,7 +337,26 @@ let getDayAppointments = (params) => {
   ON (a.pacient_id = p.pacient_id)
   INNER JOIN medical_agreements m
   ON (a.medical_agreement_id = m.medical_agreement_id)
-  WHERE a.appointment_day = \${appointment_day} AND ( d.doctor_id = \${doctor_id} OR p.pacient_id = \${pacient_id});
+  WHERE a.appointment_day = \${appointment_day} AND d.doctor_id = \${doctor_id}
+  `;
+
+  return db.many(query, params);
+};
+
+let getPacientDayAppointments = (params) => {
+  let query =
+  `
+  SELECT d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  FROM appointments a
+  INNER JOIN doctors d
+  ON (a.doctor_id = d.doctor_id)
+  INNER JOIN offices o
+  ON (a.office_id = o.office_id)
+  INNER JOIN pacients p
+  ON (a.pacient_id = p.pacient_id)
+  INNER JOIN medical_agreements m
+  ON (a.medical_agreement_id = m.medical_agreement_id)
+  WHERE a.appointment_day = \${appointment_day} AND p.pacient_id = \${pacient_id}
   `;
 
   return db.many(query, params);
@@ -411,37 +430,38 @@ let getDoctorData = (param) => {
   return db.one(query, param);
 };
 module.exports = {
-  getAllMedicalAgreements:  getAllMedicalAgreements,
-  getMedicalAgreement:      getMedicalAgreement,
-  createMedicalAgreement:   createMedicalAgreement,
-  updateMedicalAgreement:   updateMedicalAgreement,
-  deleteMedicalAgreement:   deleteMedicalAgreement,
-  getAllDoctors:            getAllDoctors,
-  getFreeDoctors:            getFreeDoctors,
-  getDoctor:                getDoctor,
-  createDoctor:            createDoctor,
-  verifyDoctor:             verifyDoctor,
-  updatedDoctor:            updateDoctor,
-  deletedDoctor:            deleteDoctor,
-  getAllOffices:            getAllOffices,
-  getOffice:                getOffice,
-  createOffice:             createOffice,
-  updateOffice:             updateOffice,
-  deleteOffice:             deleteOffice,
-  getAllPacients:           getAllPacients,
-  getPacient:               getPacient,
-  getPacientWithEmail:      getPacientWithEmail,
-  createPacient:            createPacient,
-  verifyPacient:           verifyPacient,
-  updatePacient:            updatePacient,
-  deletePacient:            deletePacient,
-  getAllAppointments:       getAllAppointments,
-  getAppointment:           getAppointment,
-  getDayAppointments:       getDayAppointments,
-  createAppointment:        createAppointment,
-  updateAppointment:        updateAppointment,
-  deleteAppointment:        deleteAppointment,
-  createDoctorData:         createDoctorData,
+  getAllMedicalAgreements:    getAllMedicalAgreements,
+  getMedicalAgreement:        getMedicalAgreement,
+  createMedicalAgreement:     createMedicalAgreement,
+  updateMedicalAgreement:     updateMedicalAgreement,
+  deleteMedicalAgreement:     deleteMedicalAgreement,
+  getAllDoctors:              getAllDoctors,
+  getFreeDoctors:             getFreeDoctors,
+  getDoctor:                  getDoctor,
+  createDoctor:               createDoctor,
+  verifyDoctor:               verifyDoctor,
+  updatedDoctor:              updateDoctor,
+  deletedDoctor:              deleteDoctor,
+  getAllOffices:              getAllOffices,
+  getOffice:                  getOffice,
+  createOffice:               createOffice,
+  updateOffice:               updateOffice,
+  deleteOffice:               deleteOffice,
+  getAllPacients:             getAllPacients,
+  getPacient:                 getPacient,
+  getPacientWithEmail:        getPacientWithEmail,
+  createPacient:              createPacient,
+  verifyPacient:              verifyPacient,
+  updatePacient:              updatePacient,
+  deletePacient:              deletePacient,
+  getAllAppointments:         getAllAppointments,
+  getAppointment:             getAppointment,
+  getDoctorDayAppointments:   getDoctorDayAppointments,
+  getPacientDayAppointments:  getPacientDayAppointments,
+  createAppointment:          createAppointment,
+  updateAppointment:          updateAppointment,
+  deleteAppointment:          deleteAppointment,
+  createDoctorData:           createDoctorData,
   updateDoctorDataMedicalAgreement:  updateDoctorDataMedicalAgreement,
   getDoctorData:  getDoctorData
 };
