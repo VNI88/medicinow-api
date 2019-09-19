@@ -351,7 +351,7 @@ let createAppointment = (body) => {
   RETURNING appointment_id
   `;
 
-  db.one( query, body);
+   return db.one( query, body);
 };
 
 let updateAppointment = (appointment_id, body) => {
