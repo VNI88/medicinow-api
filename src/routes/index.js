@@ -104,6 +104,9 @@ router.get('/api/v1/appointments/:id', auth.verifyToken, appointments.show);
 // GET the doctor appointments of the day
 router.get('/api/v1/appointments/doctor_day_list/:appointment_day/:doctor_id', auth.verifyToken, appointments.showDoctorDayList);
 
+// GET the doctor appointments of the day
+router.get('/api/v1/appointments/doctor_canceled_list/:doctor_id', auth.verifyToken, appointments.showDoctorCanceledList);
+
 // GET the pacient appointments of the day
 router.get('/api/v1/appointments/pacient_day_list/:appointment_day/:pacient_id', auth.verifyToken, appointments.showPacientDayList);
 

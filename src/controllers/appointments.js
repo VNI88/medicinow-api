@@ -56,6 +56,25 @@ let showDoctorDayList = async (req, res) => {
   }
 };
 
+let showDoctorCanceledList = async (req, res) => {
+  try{
+    let params = req.params;
+    let data = await database.getDoctorCanceledAppointments(params)
+
+    return res.status(200).json({
+     status: 'success',
+     data: data,
+     message: `Retrieved canceled appointments`
+   });
+  }
+  catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      error: err
+    });
+  }
+};
+
 let showPacientDayList = async (req, res) => {
   try{
     let params = req.params;
@@ -143,6 +162,7 @@ module.exports = {
   index:              index,
   show:               show,
   showDoctorDayList:  showDoctorDayList,
+  showDoctorCanceledList:  showDoctorCanceledList,
   showPacientDayList:  showPacientDayList,
   update:             update,
   create:             create,
