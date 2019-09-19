@@ -327,7 +327,7 @@ let getAppointment = (doctor_id) => {
 let getDoctorDayAppointments = (params) => {
   let query =
   `
-  SELECT a.appointment_id, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
   FROM appointments a
   INNER JOIN doctors d
   ON (a.doctor_id = d.doctor_id)
@@ -346,7 +346,7 @@ let getDoctorDayAppointments = (params) => {
 let getPacientDayAppointments = (params) => {
   let query =
   `
-  SELECT d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
+  SELECT a.appointment_id, a.confirmed, a.canceled, d.first_name doctor_first_name, d.last_name doctor_last_name, d.speciality, a.appointment_day appointment_day, a.appointment_hour appointment_hour,o.street_address street_address, p.first_name pacient_first_name, p.last_name pacient_last_name, m.brand, m.plan
   FROM appointments a
   INNER JOIN doctors d
   ON (a.doctor_id = d.doctor_id)
@@ -377,8 +377,8 @@ let updateAppointment = (appointment_id, body) => {
   let query =
   `
   UPDATE APPOINTMENTS
-  SET pacient_appointment_id = \${pacient_appointment_id} , doctor_appointment_id = \${doctor_appointment_id}, medical_agreement_appointment_id = \${medical_agreement_appointment_id}, appointment_day = \${appointment_day}, appointment_hour = \${appointment_hour}, confirmed = \${confirmed}, canceled = \${canceled}
-  WHERE appointment_id = ${appointment_id}
+  SET confirmed = false, canceled = true
+  WHERE appointment_id = \${appointment_id}
   `;
 
   return db.result(query, body);
