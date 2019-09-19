@@ -392,7 +392,7 @@ let createAppointment = (body) => {
    return db.one( query, body);
 };
 
-let updateAppointment = (appointment_id, body) => {
+let updateAppointment = (appointment_id) => {
   let query =
   `
   UPDATE APPOINTMENTS
@@ -400,7 +400,7 @@ let updateAppointment = (appointment_id, body) => {
   WHERE appointment_id = \${appointment_id}
   `;
 
-  return db.result(query, body);
+  return db.result(query, appointment_id);
 };
 
 let deleteAppointment = (appointment_id) => {

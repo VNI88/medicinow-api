@@ -116,8 +116,7 @@ let create = async (req, res) => {
 let update = async (req, res) => {
   try{
     let id = req.params.id;
-    let body = req.body;
-    let data = await database.updateAppointment(id, body)
+    let data = await database.updateAppointment(id)
 
     return res.status(201).json({
      status: 'success',
